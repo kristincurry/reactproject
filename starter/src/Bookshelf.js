@@ -1,38 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "./BooksAPI";
 import List from "./List";
+import PropTypes from "prop-types";
 
-const Bookshelf = () =>{
-    const currentlyReadingShelfName = "currentlyReading";
-    const wantToReadShelfName = "wantToRead";
-    const readShelfName = "read";
-
-    const [currentlyReading, setCurrentlyReading] = useState([]);
-    const [wantToRead, setWantToRead] = useState([]);
-    const [read, setRead] = useState([]);
-
-    useEffect(()=>{        
-        getAllBooks();
-    }, []);
-
-    const getAllBooks = async () =>{
-        const res = await BooksAPI.getAll();
-        setCurrentlyReading(res.filter((book)=> book.shelf === currentlyReadingShelfName));
-        setWantToRead(res.filter((book)=> book.shelf === wantToReadShelfName));
-        setRead(res.filter((book)=> book.shelf === readShelfName));
-    };
-
-    const updateBook = async (book, shelf) =>{
-        const res = await BooksAPI.update(book, shelf);
-    };
-
-    const onShelfChange = (event, book) =>{
-        var newShelf = event.currentTarget.value;
-        updateBook(book, newShelf);
-        getAllBooks();
-    };
-
+const Bookshelf = ({onShelfChange, currentlyReading, wantToRead, read}) =>{
     return <div className="list-books">
         <div className="list-books-title">
             <h1>MyReads</h1>
@@ -49,5 +19,12 @@ const Bookshelf = () =>{
         </div>
     </div>
 };
+
+Bookshelf.propTypes = {
+    onShelfChange: PropTypes.func.isRequired,
+    currentlyReading: PropTypes.array,
+    wantToRead: PropTypes.array,
+    read: PropTypes.array
+}
 
 export default Bookshelf;

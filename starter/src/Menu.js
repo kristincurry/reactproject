@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Menu = ({val, onShelfChange}) =>{
     return <div className="book-shelf-changer">
-    <select defaultValue={val} onChange={(event)=> onShelfChange(event)}>
+    <select defaultValue={val??"none"} onChange={(event)=> onShelfChange(event)}>
       <option value="none" disabled>
         Move to...
       </option>
@@ -17,7 +17,7 @@ const Menu = ({val, onShelfChange}) =>{
 };
 
 Menu.propTypes = {
-    val: PropTypes.string.isRequired,
+    val: PropTypes.string,
     onShelfChange: PropTypes.func.isRequired
 }
 

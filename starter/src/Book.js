@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 import Menu from "./Menu";
+import { Link } from "react-router-dom";
+import BookCover from "./BookCover";
+
 const Book = ({book, onShelfChange}) =>{
     const onChangeSelf = (event) =>{
         onShelfChange(event, book);
@@ -7,14 +10,9 @@ const Book = ({book, onShelfChange}) =>{
     return<li>
         <div className="book">
             <div className="book-top">
-                <div
-                    className="book-cover"
-                    style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: 'url("'+book.imageLinks.thumbnail +'")',
-                    }}>
-                </div>
+                <Link to={`/details/${book.id}`}>
+                    <BookCover url={book.imageLinks.thumbnail}></BookCover>
+                </Link>
                 <Menu val={book.shelf} onShelfChange={onChangeSelf}></Menu>
             </div>
             <div className="book-title">{book.title}</div>

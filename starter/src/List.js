@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import Book from "./Book";
 const List = ({books, title, onShelfChange}) =>{
-    console.log(books)
     return <div>
         {!title ? 
             (<></>) 
